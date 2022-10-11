@@ -111,8 +111,8 @@ class TestIndexView(BaseTestCase):
 
 
 class TestPerformance(BaseTestCase):
-    ANSWER_COUNT = 5
-
+    ANSWER_COUNT = 1
+    cont = ANSWER_COUNT + 8
     def setUp(self):
         super().setUp()
         User.objects.bulk_create([
@@ -127,7 +127,7 @@ class TestPerformance(BaseTestCase):
         self.client.login(username=USERNAME, password=PASSWORD)
 
     def test_querycount(self):
-        with self.assertNumQueries(13):
+        with self.assertNumQueries(self.cont):
             self.client.get(reverse('index'))
 
 
